@@ -1,4 +1,4 @@
-import { db } from "./firbaseConfig";
+import { db } from "../components/firbaseConfig";
 import { ref, set } from "firebase/database";
 import React, { useState } from "react";
 
