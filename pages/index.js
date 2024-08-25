@@ -22,6 +22,7 @@ export default function Home() {
   const [parsedData, setParsedData] = useState(null);
   const [filter, setFilter] = useState("");
   const [filteredOutput, setFilteredOutput] = useState("");
+  const [inputDisplay, setInputDisplay] = useState(""); // State to store the original input
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +48,7 @@ export default function Home() {
       };
 
       setParsedData(data);
+      setInputDisplay(jsonInput); // Store the original input for display
 
       // Send the data to Realtime Database
       const added = await addDataToRealtimeDatabase(data);
@@ -54,6 +56,7 @@ export default function Home() {
         setJsonInput("");
       }
     } catch (err) {
+      alert("The input is not a valid JSON format. Please correct it.");
       console.error("Invalid JSON format", err);
     }
   };
@@ -83,7 +86,7 @@ export default function Home() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.heading}>Aryan Rana 21BCE11263(VIT, B)</h1>
+      <h1 style={styles.heading}>Aryan Rana 21BCE11263 (VIT, B)</h1>
       <div>
         <form onSubmit={handleSubmit}>
           <div>
@@ -104,6 +107,13 @@ export default function Home() {
           </div>
         </form>
       </div>
+
+      {inputDisplay && (
+        <div style={styles.jsonDisplay}>
+          <h2 style={styles.subheading}>Your Input:</h2>
+          <pre>{inputDisplay}</pre>
+        </div>
+      )}
 
       {parsedData && (
         <div>
@@ -180,5 +190,23 @@ const styles = {
     backgroundColor: "#fff",
     color: "#6a0dad",
     cursor: "pointer",
+  },
+  jsonDisplay: {
+    marginTop: "20px",
+    padding: "10px",
+    backgroundColor: "#fff",
+    color: "#000",
+    borderRadius: "5px",
+    width: "80%",
+    wordWrap: "break-word",
+  },
+  "@media (max-width: 480px)": {
+    container: {
+      padding: 2,
+      marginRight: "10px",
+    },
+    button: {
+      width: "100%", // Button width matches the textarea/input box width
+    },
   },
 };
