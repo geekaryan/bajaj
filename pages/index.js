@@ -1,11 +1,13 @@
-import { db } from "./firbaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { database } from "./firebaseConfig";
+import { ref, set } from "firebase/database";
 import React, { useState } from "react";
 
-async function addDataToFireStore(data) {
+// Function to add data to Firebase Realtime Database
+async function addDataToFirebaseRealtimeDB(data) {
   try {
-    const docRef = await addDoc(collection(db, "messages"), data);
-    console.log("Document written with ID: ", docRef.id);
+    const docRef = ref(database, "messages/" + Date.now());
+    await set(docRef, data);
+    console.log("Data written to Realtime Database");
     return true;
   } catch (err) {
     console.error("Error adding data", err);
@@ -44,8 +46,8 @@ export default function Home() {
 
       setParsedData(data);
 
-      // Optionally send the data to Firestore
-      const added = await addDataToFireStore(data);
+      // Optionally send the data to Firebase Realtime Database
+      const added = await addDataToFirebaseRealtimeDB(data);
       if (added) {
         setJsonInput("");
       }

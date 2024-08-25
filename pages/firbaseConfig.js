@@ -1,10 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBEKUcqWSJzhF3s53bk4SccVUQUxYhomtw",
   authDomain: "bajafirebase.firebaseapp.com",
+  databaseURL: "https://bajafirebase-default-rtdb.firebaseio.com/",
   projectId: "bajafirebase",
   storageBucket: "bajafirebase.appspot.com",
   messagingSenderId: "194551742091",
@@ -13,6 +14,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db = getDatabase(app);
 
 export { db };
